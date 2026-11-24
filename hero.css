@@ -1,0 +1,398 @@
+/* Grail hero + About Problem — values taken 1:1 from grail-app.com */
+
+@font-face {
+  font-family: Switzer;
+  src: url(assets/fonts/Switzer-Variable.woff2) format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Epicene Text";
+  src: url(assets/fonts/EpiceneText-Light.woff2) format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Epicene Text";
+  src: url(assets/fonts/EpiceneText-LightItalic.woff2) format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Charles Rosie";      /* brand name (as on santionispirits.com), study only */
+  src: url(assets/fonts/CharlesRosie.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "PP Pangaia";
+  src: url(assets/fonts/PPPangaia-Light.woff2) format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, :before, :after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* brand type (2026-11-24): headings Charles Rosie caps, everything else Switzer, sizes on a 1.25 scale */
+  --font-sans: Switzer, system-ui, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000;
+  width: 100%;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  font-size: inherit;
+  background: 0 0;
+  border: none;
+}
+
+.sr-only {
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+/* ---------- page ---------- */
+.page {
+  color: #fff;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  isolation: isolate;
+  background: #000;
+  position: relative;
+  overflow-x: clip;
+}
+
+/* ---------- WebGL scene ---------- */
+.scene {
+  z-index: 2;
+  transform: translateZ(0);
+  transform-origin: 50% 42%;
+  will-change: transform, opacity;
+  position: fixed;
+  inset: 130px 0 0;
+  overflow: hidden;
+  /* soft top edge: the column dissolves under the headline instead of being cut */
+  --tf: 26;   /* set from main.js: relaxes to 0 as the pair forms */
+  -webkit-mask-image: linear-gradient(#0000 0, #000 calc(var(--tf) * 1%));
+  mask-image: linear-gradient(#0000 0, #000 calc(var(--tf) * 1%));
+}
+.canvas {
+  touch-action: pan-y;
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+@media (pointer: coarse) {
+  .canvas { pointer-events: none; touch-action: auto; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  z-index: 3;
+  pointer-events: none;
+  height: 100vh;
+  min-height: 720px;
+  position: relative;
+}
+.hero > * { pointer-events: auto; }
+
+.scrim {
+  z-index: 1;
+  pointer-events: none;
+  height: 56vh;
+  min-height: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.blur { position: absolute; inset: 0; }
+.b1 {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(#000 0% 50%, #0000 92%);
+  mask-image: linear-gradient(#000 0% 50%, #0000 92%);
+}
+.b2 {
+  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px);
+  -webkit-mask-image: linear-gradient(#000 0% 22%, #0000 52%);
+  mask-image: linear-gradient(#000 0% 22%, #0000 52%);
+}
+.grad {
+  background: linear-gradient(#000 38%, #0000 100%);
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- nav: boxed cells (The Drake style), only at the top of the hero ---------- */
+.nav {
+  z-index: 3;
+  padding: max(30px, env(safe-area-inset-top, 0px)) 40px 30px;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  position: relative;
+}
+.nav > * { pointer-events: auto; }
+.navL, .navR { display: flex; align-items: flex-start; }
+.navRows { display: grid; justify-items: start; margin-left: -1px; }
+.navRow { display: flex; }
+.navRow + .navRow { margin-top: -1px; }
+.cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  padding: 1px 11px 0;
+  color: #17150f;
+  background: #f1efe9;
+  border: 1px solid #17150f;
+  font-family: var(--font-sans);
+  font-size: 12.8px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.navRow .cell + .cell, .navR .cell + .cell { margin-left: -1px; }
+.cell svg { width: 14px; height: 14px; stroke-width: 1.6; }
+.cell:hover, .cell:focus-visible { background: #17150f; color: #f1efe9; outline: none; }
+.logoBtn.cell {
+  height: 59px;
+  padding: 0 14px;
+  text-transform: none;
+}
+.logoBtn .wordmark { font-size: 20px; }
+.cta svg { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.cta:hover svg { transform: translateX(3px); }
+@media (max-width: 1100px) { .navRow.navLinks { display: none; } .navRows { align-self: stretch; } }
+@media (max-width: 640px) { .navRows { display: none; } .nav { padding: 20px 20px 24px; } }
+
+.headline {
+  z-index: 2;
+  color: #fff;
+  width: max-content;
+  font-family: "Charles Rosie", var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transform-origin: 50%;
+  will-change: transform, opacity;
+  margin: 34px auto 0;
+  font-size: 7vw;
+  font-weight: 400;
+  line-height: 0.92;
+  position: relative;
+}
+.hero > .headline { pointer-events: none; }
+.word { white-space: nowrap; display: inline-block; }
+.word.it { font-style: italic; letter-spacing: 0; }
+.space { width: 0.26em; display: inline-block; }
+.letter {
+  display: inline-block;   /* no rise-in: the headline is simply there */
+}
+@keyframes rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- side labels ---------- */
+.colontitle {
+  z-index: 6;
+  white-space: nowrap;
+  pointer-events: none;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 12.8px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  display: flex;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+}
+.colontitle > span { display: inline-flex; align-items: center; gap: 8px; }
+.colontitle svg { width: 14px; height: 14px; stroke-width: 1.6; }
+.colontitle .right { text-align: right; }
+.colontitle.dark { color: #fff; }
+
+/* ---------- section 2: About Problem ---------- */
+.section2 {
+  z-index: 3;
+  background: linear-gradient(#0000 0%, #000 24% 76%, #0000 100%);
+  align-items: center;
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+/* Layout C "Tucked" (about-layouts.html, picked 2026-11-24).
+   Title = Charles Rosie caps, body + labels = Switzer. Sizes only from the 1.25 scale (16 × 1.25^n):
+   label 12.8 · body 16 · title 95.37 (119.21 on very wide screens, smaller steps on narrow ones).
+   Indents and the body position are in title units (--s2t) so the layout keeps its shape at every step. */
+.section2 { --s2t: 95.37px; }
+@media (min-width: 1800px) { .section2 { --s2t: 119.21px; } }
+@media (max-width: 1279px) { .section2 { --s2t: 76.29px; } }
+@media (max-width: 999px)  { .section2 { --s2t: 61.04px; } }
+@media (max-width: 699px)  { .section2 { --s2t: 39.06px; } }
+@media (max-width: 479px)  { .section2 { --s2t: 31.25px; } }
+.section2 .colontitle {
+  top: 40px; left: 40px; right: 40px;
+  font-family: Switzer, sans-serif;
+  font-size: 12.8px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+.s2inner { width: 100%; position: relative; padding: 0 40px; }
+.s2head {
+  font-family: "Charles Rosie", serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-variant-ligatures: none;   /* otherwise LI merges into one glyph */
+  letter-spacing: 0;
+  color: #fff;
+  font-size: var(--s2t);
+  line-height: 0.96;
+}
+.s2line {
+  white-space: nowrap;
+}
+.s2line.in { padding-left: 3.65em; }
+.s2body {
+  position: absolute;
+  top: calc(var(--s2t) * 2.14);
+  /* centred on the screen, right above the shoe pair (which is centred too); never closer to the title than before */
+  /* left edge = left edge of the landed left shoe: situp-scene.js scales the pair with (viewport height − 130 px),
+     measured 0.0997 × that to the left of centre */
+  left: max(calc(50% - (100vh - 130px) * 0.0997), calc(40px + var(--s2t) * 5.6));   /* 2nd = just clear of "ON A SCREEN." */
+  width: 252px;   /* 9 lines */
+  font-family: Switzer, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.66);
+}
+/* narrow screens: no room beside the short lines, the body drops under the title */
+@media (max-width: 999px) {
+  .s2body { position: static; width: auto; max-width: 360px; margin-top: 39.06px; }
+}
+@media (max-width: 479px) {
+  .section2 .colontitle { left: 20px; right: 20px; }
+  .s2inner { padding: 0 20px; }
+  .s2line.in { padding-left: 2em; }
+}
+@keyframes s2rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- section 3: hold for the single card ---------- */
+.section3 {
+  z-index: 3;
+  pointer-events: none;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ---------- floating waitlist pill ---------- */
+.waitPill {
+  z-index: 30;
+  left: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  --pill-accent: #ffcdff;
+  --pill-btn-bg: #ffffff24;
+  --pill-btn-fg: #ffcdff;
+  --pill-body: #18181899;
+  --pill-border: #ffffff24;
+  border: 1px solid var(--pill-border);
+  background: var(--pill-body);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  opacity: 0;
+  pointer-events: none;
+  translate: 0 16px;
+  border-radius: 84px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 6px 6px 16px;
+  transition: opacity 0.35s, translate 0.35s, scale 0.2s, background 0.35s, border-color 0.35s;
+  display: flex;
+  position: fixed;
+  overflow: hidden;
+}
+.waitPill.on { opacity: 1; pointer-events: auto; translate: 0; }
+.waitPill.on:hover, .waitPill.on:focus-visible { translate: 0 -3px; }
+.waitPill.on:active { translate: 0 -1px; scale: 0.99; }
+.pillMark {
+  background: var(--pill-accent);
+  width: 27px;
+  height: 25px;
+  display: block;
+  -webkit-mask: url(assets/grail-mark.svg) 50% / contain no-repeat;
+  mask: url(assets/grail-mark.svg) 50% / contain no-repeat;
+  transition: background 0.35s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pillBtn {
+  background: var(--pill-btn-bg);
+  color: var(--pill-btn-fg);
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 13px 20px 12px;
+  font-size: 12.8px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  transition: background 0.35s, color 0.35s, filter 0.15s;
+  display: block;
+}
+.waitPill:hover .pillBtn, .waitPill:focus-visible .pillBtn { filter: brightness(1.08); }
+.waitPill:hover .pillMark { transform: rotate(-8deg) scale(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, :before, :after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

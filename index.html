@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Airborne — Cloud Drift running shoes</title>
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg" />
+  <meta name="description" content="Cloud Drift by Airborne: 212 g running shoes with a cloud of foam under every step. Free shipping, 60-day trial runs." />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/CharlesRosie.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Switzer-Variable.woff2" crossorigin />
+  <link rel="stylesheet" href="hero.css" />
+  <link rel="stylesheet" href="style.css?v=15" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js" defer></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ HERO + ABOUT PROBLEM (approved shoe spiral, version 2) ============ -->
+  <div class="page" id="page">
+    <div class="scene" id="scene">
+      <canvas class="canvas" id="spiral" aria-hidden="true"></canvas>
+    </div>
+
+    <!-- 3D sage pair: behind the "About problem" section, uncovered by its black band like the flat pair was covered -->
+    <canvas class="situp" id="situp" aria-hidden="true"></canvas>
+
+    <header class="hero">
+      <div class="scrim" aria-hidden="true">
+        <div class="blur b1"></div>
+        <div class="blur b2"></div>
+        <div class="grad"></div>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <div class="navL">
+          <button class="logoBtn cell" id="logoBtn" aria-label="Airborne, back to top">
+            <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M6 94 43 6h14L24 94z"/><path d="M57 6h4l31 88h-9z"/><path d="M15 70 100 41 17 76z"/></svg><span class="wordmark">Airborne</span>
+          </button>
+          <div class="navRows">
+            <div class="navRow"><a class="cell" href="#">Find a store <i data-lucide="map-pin"></i></a></div>
+            <div class="navRow navLinks">
+              <a class="cell" href="#sellers">Shop all</a>
+              <a class="cell" href="#sellers">Women</a>
+              <a class="cell" href="#sellers">Men</a>
+              <a class="cell" href="#shop">Cloud Drift</a>
+              <a class="cell" href="#section2">Our story</a>
+              <a class="cell" href="#">Gift cards</a>
+              <a class="cell" href="#help">Help</a>
+            </div>
+          </div>
+        </div>
+        <div class="navR">
+          <button class="cell" id="menuBtn">Menu <i data-lucide="menu"></i></button>
+          <button class="cell cta" id="navCta">Shop the drop <i data-lucide="arrow-right"></i></button>
+        </div>
+      </nav>
+      <h1 class="headline" id="headline" aria-label="Get airborne"></h1>
+    </header>
+
+    <section class="section2" id="section2">
+      <h2 class="sr-only">Everyone's out living. You're watching them do it on a screen.</h2>
+      <div class="s2inner" id="s2inner">
+        <div class="s2head" aria-hidden="true">
+          <div class="s2line">Everyone’s out living.</div>
+          <div class="s2line in">You’re watching</div>
+          <div class="s2line">them do it</div>
+          <div class="s2line">on a screen.</div>
+        </div>
+        <p class="s2body">Same week, over and over, until you can’t tell them apart. You keep meaning to do the thing, go to the place, become the person, and somehow it’s always next week. The loop is comfortable, which is the problem, because comfortable is how a whole year slips by with nothing in it worth remembering.</p>
+      </div>
+    </section>
+
+    <!-- hold: the 3D sage pair is lit, sits up, lands, and the video opens from its heels -->
+    <section class="section3" id="hold"></section>
+
+    <div class="airfix" id="air" aria-label="Legs in sage sneakers dangling in front of a truck window">
+      <canvas class="air-canvas" id="airCanvas"></canvas>
+      <video class="air-video" id="airVideo" src="assets/air/air-swing.mp4?v=sage" muted loop playsinline preload="auto"></video>
+      <!-- the reveal: a quiet museum-style caption printed into the sky beside the right shoe (placed in video coordinates by main.js) -->
+      <div class="reveal" id="reveal">
+        <figure class="cap" id="revealCap">
+          <p class="cap-k">Fig. 01 · The pair</p>
+          <h2 class="cap-h">Cloud Drift, Sage</h2>
+          <p class="cap-b">Worn on a tailgate somewhere off the coast road, late afternoon, nowhere to be.</p>
+          <dl class="cap-d">
+            <dt>Weight</dt><dd>212 g</dd>
+            <dt>Foam</dt><dd>38 mm</dd>
+            <dt>Price</dt><dd>From $165</dd>
+          </dl>
+          <a class="ptag ink cap-btn" href="#sellers" data-price="$165">Shop all 4 colours</a>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <main class="rest">
+
+    <!-- ============ LAUNCH WEEK: two photos, one offer across both (layout B, approved) ============ -->
+    <section class="launch" id="shop">
+      <figure><img src="assets/life/launch-a.jpg" alt="Sage Cloud Drift on someone sitting on a truck tailgate at golden hour" loading="lazy" /></figure>
+      <figure><img src="assets/life/launch-b.jpg" alt="Ice Cobalt Cloud Drift mid-stride on a sunlit crosswalk" loading="lazy" /></figure>
+      <div class="launch-offer">
+        <p class="t-label rv">Launch week · through Sunday</p>
+        <h2 class="t-h2 rv">20% off your first pair</h2>
+        <p class="t-body rv">Every colour. Free shipping both ways and 60 days to decide.</p>
+      </div>
+      <div class="launch-cta">
+        <div><a class="ptag fill" href="#sellers" data-filter="women" data-price="$165" data-to="$132" data-note="launch price">Women’s, 8 styles</a></div>
+        <div><a class="ptag fill" href="#sellers" data-filter="men" data-price="$165" data-to="$132" data-note="launch price">Men’s, 8 styles</a></div>
+      </div>
+    </section>
+
+    <!-- ============ BEST SELLERS: two rows ============ -->
+    <section class="sellers" id="sellers">
+      <div class="sell-head">
+        <h2 class="t-h2 rv">Shop the drop</h2>
+        <div class="sell-tools">
+          <div class="filters" role="tablist" aria-label="Filter shoes">
+            <button class="chip on" role="tab" aria-selected="true" data-f="all">All <span>8</span></button>
+            <button class="chip" role="tab" aria-selected="false" data-f="Cloud Drift">Cloud Drift <span>4</span></button>
+            <button class="chip" role="tab" aria-selected="false" data-f="Cloud Drift Lite">Lite <span>4</span></button>
+          </div>
+          <a class="ptag" href="#sellers">Browse all</a>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+
+    <!-- ============ COLOURWAYS: two-up ============ -->
+    <section class="duo">
+      <a class="duo-card" href="#sellers">
+        <div class="duo-img"><img src="assets/life/duo-sage.jpg" alt="Sage Cloud Drift on a sea wall next to a skateboard" loading="lazy" /></div>
+        <div class="duo-copy">
+          <h3 class="t-h3">Cloud Drift Sage</h3>
+          <p class="t-body">Soft green, warm white, black laces. The one that goes with everything.</p>
+          <span class="ptag" data-price="$145+">The Sage edit, 2 styles</span>
+        </div>
+      </a>
+      <a class="duo-card" href="#sellers">
+        <div class="duo-img"><img src="assets/life/duo-blaze.jpg" alt="White Blaze Cloud Drift mid-jump against a blue sky" loading="lazy" /></div>
+        <div class="duo-copy">
+          <h3 class="t-h3">Cloud Drift White Blaze</h3>
+          <p class="t-body">Bright white with a blaze of orange and a sky-blue heel. For early, loud mornings.</p>
+          <span class="ptag" data-price="$145+">The White Blaze edit, 2 styles</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- ============ ON REPEAT ============ -->
+    <section class="repeat">
+      <img src="assets/life/repeat.jpg" alt="Navy Sky Cloud Drift up on the dashboard of a vintage car" loading="lazy" />
+      <div class="repeat-copy">
+        <h2 class="t-h2 rv">On repeat</h2>
+        <p class="t-body rv">The pair you reach for without thinking. Navy Sky is back in every size.</p>
+        <a href="#sellers" class="ptag fill rv" data-price="$165">Every size, 6 to 12</a>
+      </div>
+    </section>
+
+    <!-- ============ STUDIO: one shoe per card, rising out of On repeat. The last shoe loses its studio
+         backdrop from the toe up, then rides the centre of the screen down into the footer ============ -->
+    <section class="studio" id="studio" aria-label="Studio shots">
+      <figure class="s-card" style="grid-row:1"><span class="s-num">01</span><img src="assets/studio/01-navy.jpg" alt="Cloud Drift in Navy Sky, studio shot" loading="lazy" /></figure>
+      <figure class="s-card" style="grid-row:2"><span class="s-num">02</span><img src="assets/studio/02-ice.jpg" alt="Cloud Drift in Ice Cobalt, side view" loading="lazy" /></figure>
+      <figure class="s-card" style="grid-row:3"><span class="s-num">03</span><img src="assets/studio/03-blaze.jpg" alt="Cloud Drift in White Blaze, from the heel" loading="lazy" /></figure>
+      <figure class="s-card" style="grid-row:4"><span class="s-num">04</span><img src="assets/studio/04-sage.jpg" alt="Cloud Drift in Sage, tipped onto its toe" loading="lazy" /></figure>
+      <!-- spec sheet: the card in the middle of the screen is the selected one; its row lights up, its details
+           show and its headline number rolls in on the right. A hairline points from the row to the card. -->
+      <div class="s-side s-left" style="grid-row:2 / 6">
+        <div class="s-sticky">
+          <p class="s-lab">Cloud Drift · the line-up</p>
+          <ol class="s-list" id="sList">
+            <li><i></i><span>01 · Navy Sky</span><em>In view</em></li>
+            <li><i></i><span>02 · Ice Cobalt</span><em>In view</em></li>
+            <li><i></i><span>03 · White Blaze</span><em>In view</em></li>
+            <li><i></i><span>04 · Sage</span><em>In view</em></li>
+            <li><i></i><span>05 · Sage, from above</span><em>In view</em></li>
+          </ol>
+          <p class="s-lab s-lab2">No. <span id="specNo">01</span> · details</p>
+          <dl class="s-spec" id="specRows"></dl>
+        </div>
+      </div>
+      <div class="s-side s-right" style="grid-row:2 / 6">
+        <div class="s-sticky">
+          <p class="s-lab" id="bigLab"></p>
+          <div class="s-big" id="bigNum" aria-live="polite"></div>
+          <p class="s-cap" id="bigCap"></p>
+        </div>
+      </div>
+      <svg class="s-link" id="sLink" aria-hidden="true"><path d="" /><rect width="7" height="7" /></svg>
+      <figure class="s-card s-hero" id="sHero" style="grid-row:5">
+        <span class="s-num">05</span>
+        <img class="s-bg" src="assets/studio/05-hero-empty.jpg" alt="" loading="lazy" />
+        <img class="s-cut" id="sCut" src="assets/studio/05-hero-cut-sm.webp" alt="Cloud Drift in Sage, seen from above" loading="lazy" />
+      </figure>
+    </section>
+
+    <!-- ============ OUT THERE: the title and button open up to let the shoe through ============ -->
+    <section class="out" id="out" aria-label="Out there">
+      <div class="out-head">
+        <h2 class="sr-only">No more watching. Now it’s you out there, living it.</h2>
+        <div class="o-title" aria-hidden="true">
+          <span class="o-line" style="--x:-1.9em">No more watching.</span>
+          <span class="o-line" style="--x:1.6em">Now it’s you</span>
+          <span class="o-line" style="--x:-0.7em">out there,</span>
+          <span class="o-line" style="--x:2.3em">living it.</span>
+        </div>
+        <a class="ptag fill" id="outBtn" href="#sellers" data-price="$145+">Shop every colourway</a>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="foot" id="foot">
+      <div class="foot-top" id="help">
+        <div class="ft-left">
+          <a class="ft-brand" href="#page" aria-label="Airborne, back to the top"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M6 94 43 6h14L24 94z"/><path d="M57 6h4l31 88h-9z"/><path d="M15 70 100 41 17 76z"/></svg><span class="wordmark">Airborne</span></a>
+          <h2 class="foot-say"><span>See you</span><span class="in">out there.</span></h2>
+          <div class="news">
+            <p class="t-body">New colours land here first, plus one good route a month.</p>
+            <form class="news-form" onsubmit="event.preventDefault(); this.classList.add('done');">
+              <input type="email" required placeholder="Your email" aria-label="Your email" />
+              <button type="submit">Sign up <i data-lucide="arrow-right"></i></button>
+              <span class="thanks">Thanks. See you on the next drop.</span>
+            </form>
+          </div>
+        </div>
+        <div class="foot-shoe" id="footShoe" aria-hidden="true"><img class="mate" src="assets/studio/05-hero-cut-sm.webp" alt="" loading="lazy" /></div>
+        <nav class="cols" aria-label="Footer">
+          <div><b>Shop</b><a href="#sellers">Women’s</a><a href="#sellers">Men’s</a><a href="#sellers">Best sellers</a><a href="#shop">Launch week</a></div>
+          <div><b>Help</b><a href="#">Shipping and returns</a><a href="#">Size guide</a><a href="#">Track an order</a><a href="#">Warranty claim</a></div>
+          <div><b>Company</b><a href="#section2">Our story</a><a href="#">Sustainability</a><a href="#">Stores</a><a href="#">Careers</a></div>
+          <div><b>Follow</b><a href="#">Instagram <i data-lucide="arrow-up-right"></i></a><a href="#">TikTok <i data-lucide="arrow-up-right"></i></a><a href="#">Strava club <i data-lucide="arrow-up-right"></i></a></div>
+          <div class="care"><b>Talk to a person</b><span>Monday to Friday, 9 am to 6 pm CET</span><a href="#">Chat with us</a><span class="dim">Rua da Boavista 18, Lisbon</span></div>
+        </nav>
+      </div>
+      <div class="foot-meta">
+        <button class="region" type="button"><i data-lucide="globe"></i>Ship to Portugal · EUR</button>
+        <span class="pay">Visa · Mastercard · Apple Pay · Google Pay · Klarna</span>
+        <a class="totop" href="#page">Back to the top <i data-lucide="arrow-up"></i></a>
+      </div>
+      <div class="foot-word" id="footWord" aria-label="Airborne"></div>
+      <div class="foot-bottom"><span class="fb-l"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M6 94 43 6h14L24 94z"/><path d="M57 6h4l31 88h-9z"/><path d="M15 70 100 41 17 76z"/></svg>© 2026 Airborne. Made for days out.</span><span>Privacy · Terms · Cookies · Accessibility</span></div>
+    </footer>
+  </main>
+
+  <script type="module" src="main.js?v=16"></script>
+</body>
+</html>
