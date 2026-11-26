@@ -1,6 +1,6 @@
 // Airborne landing — one smooth-scroll instance drives the hero spiral, the air reveal and the rest.
 import Lenis from 'lenis';
-import { initHero } from './hero.js';
+import { initHero } from './hero.js?v=2';
 import { initAir } from './air.js';
 import { initSitUp } from './situp-scene.js';
 
@@ -350,9 +350,10 @@ requestAnimationFrame(studioTick);
 
 /* footer wordmark: letters hop onto the line, one after another, each time it comes into view */
 const footWord = document.getElementById('footWord');
-footWord.innerHTML = [...'Airborne'].map((ch, i) => `<span style="--i:${i}" aria-hidden="true">${ch}</span>`).join('');
+footWord.innerHTML = [...'Airborne'].map((ch, i) => `<span${ch === 'o' ? ' class="o-cut"' : ''} style="--i:${i}" aria-hidden="true">${ch}</span>`).join('');   // the O gets the footer shoe cut through it
 new IntersectionObserver(([e]) => {
   if (e.isIntersecting) { footWord.classList.remove('play'); void footWord.offsetWidth; footWord.classList.add('play'); }
+  footWord.classList.toggle('cut', e.isIntersecting);   // shoe cut slides down into the O; resets off screen so it replays
 }, { threshold: 0.5 }).observe(footWord);
 footWord.addEventListener('animationend', (e) => { if (e.target === footWord.lastElementChild) footWord.classList.remove('play'); });
 
